@@ -1,14 +1,6 @@
 #!/bin/sh
 
-DEVICE=/dev/sda
-HOSTNAME=lab
-
-EFI_SIZE=1GiB
-SWAP_SIZE=2GiB
-
-EFI_PARTITION="${DEVICE}1"
-SWAP_PARTITION="${DEVICE}2"
-ROOT_PARTITION="${DEVICE}3"
+. ./config.sh
 
 # Update the system clock
 timedatectl set-ntp true
