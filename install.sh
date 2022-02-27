@@ -1,32 +1,12 @@
 #!/bin/sh
 
-. ./config.sh
+source ./config.sh
+source ./lib/partitioning.sh
 
 # Update the system clock
 timedatectl set-ntp true
 
-# Clean the target disk
-sfdisk --delete $DEVICE
-
-# Set up the partitions
-sfdisk --label gpt $DEVICE << EOF
-,$EFI_SIZE,U
-,$SWAP_SIZE,S
-,,L
-EOF
-
-# Formating
-mkfs.fat -F 32 $EFI_PARTITION
-mkswap $SWAP_PARTITION
-mkfs.ext4 -F $ROOT_PARTITION
-
-# Mount partitions
-mount $ROOT_PARTITION /mnt
-mkdir -p /mnt/boot/efi
-mount $EFI_PARTITION /mnt/boot/efi
-
-# Activate swap
-swapon $SWAP_PARTITION
+partitioning
 
 # Apply best DNS selection
 echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4' > /etc/resolv.conf
