@@ -3,12 +3,10 @@
 # Partitioning
 DEVICE=/dev/sda
 
-EFI_SIZE=1GiB
 SWAP_SIZE=2GiB
 
-EFI_PARTITION="${DEVICE}1"
-SWAP_PARTITION="${DEVICE}2"
-ROOT_PARTITION="${DEVICE}3"
+SWAP_PARTITION="${DEVICE}1"
+ROOT_PARTITION="${DEVICE}2"
 
 # Networking
 HOSTNAME=lab
@@ -19,19 +17,15 @@ echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4' > /etc/resolv.conf
 
 sfdisk --delete $DEVICE
 
-sfdisk --label gpt $DEVICE << EOF
-,$EFI_SIZE,U
+sfdisk --label dos $DEVICE << EOF
 ,$SWAP_SIZE,S
 ,,L
 EOF
 
-mkfs.fat -F 32 $EFI_PARTITION
 mkfs.ext4 -F $ROOT_PARTITION
 mkswap $SWAP_PARTITION
 
 mount $ROOT_PARTITION /mnt
-mkdir -p /mnt/boot/efi
-mount $EFI_PARTITION /mnt/boot/efi
 swapon $SWAP_PARTITION
 
 reflector --save /etc/pacman.d/mirrorlist --country Brazil
@@ -42,8 +36,6 @@ pacstrap /mnt \
   linux-firmware \
   vim \
   grub \
-  efibootmgr \
-  os-prober \
   dosfstools \
   mtools \
   zsh \
