@@ -34,7 +34,7 @@ pacstrap /mnt \
   base \
   linux \
   linux-firmware \
-  vim \
+  neovim \
   grub \
   dosfstools \
   mtools \
