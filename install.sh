@@ -1,23 +1,18 @@
 #!/bin/sh
 
-# Partitioning
-DEVICE=/dev/sda
+iwctl --passphrase 05170212 station wlan0 connect Interneta
 
-SWAP_SIZE=8GiB
+read -p "Device: " DEVICE
+read -p "Swap Size: " SWAP_SIZE
 
 SWAP_PARTITION="${DEVICE}1"
 ROOT_PARTITION="${DEVICE}2"
 
-# Networking
-HOSTNAME=lab
-
 timedatectl set-ntp true
 
-
-echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4' > /etc/resolv.conf
+cp ./etc/resolv.conf /etc/resolve.conf
 
 sfdisk --delete $DEVICE
-
 sfdisk --label dos $DEVICE << EOF
 ,$SWAP_SIZE,S
 ,,L
@@ -47,22 +42,11 @@ pacstrap /mnt \
   base-devel \
   curl \
   ca-certificates \
-  reflector
+  reflector \
   --noconfirm
 
 genfstab -U /mnt >> /mnt/etc/fstab
-
-echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
-echo 'LANG=en_US.UTF-8' > /mnt/etc/locale.conf
-echo 'KEYMAP=us' > /mnt/etc/vconsole.conf
-echo '%wheel ALL=(ALL:ALL) ALL' >> /mnt/etc/sudoers.d/10-installer
-echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /mnt/etc/sudoers.d/10-installer
-mkdir -p /mnt/etc/iwd
-echo -e "[General]\nEnableNetworkConfiguration=true" > /mnt/etc/iwd/main.conf
-
-echo $HOSTNAME > /mnt/etc/hostname
-echo -e "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOSTNAME.localdomain $HOSTNAME" > /mnt/etc/hosts
-
+cp -R ./etc/* /mnt/etc
 cp -R -p ./ /mnt/root/archinstall
 arch-chroot /mnt /root/archinstall/sys-conf.sh
 
