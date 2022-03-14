@@ -1,6 +1,6 @@
 #!/bin/sh
 
-iwctl --passphrase 05170212 station wlan0 connect Interneta
+iwctl --passphrase xxxxxxx station wlan0 connect Any
 
 read -p "Device: " DEVICE
 read -p "Swap Size: " SWAP_SIZE
@@ -26,11 +26,37 @@ swapon $SWAP_PARTITION
 
 reflector --save /etc/pacman.d/mirrorlist --country Brazil
 
+install_pkg() {
+	case $2 in
+		0) 
+			pacstrap /mnt $1
+			;;
+		1)
+			git clone --depth 1 https://aur.archlinux.org/$2.git /tmp/$2
+			cd /tmp/$1
+			makepkg --noconfirm -si
+			;;
+		2)
+			yay -S --noconfirm $1
+			;;
+		3)
+			src=$HOME/.local/src
+			mkdir -p $src
+			pkg="$(basename "$1" .git)"
+			target=$src/$pkg
+			git clone $1 $target
+			;;
+		*) 
+			pacman -S --noconfirm $1
+			;;
+			
+	esac
+}
+
 pacstrap /mnt \
   base \
   linux \
   linux-firmware \
-  neovim \
   grub \
   dosfstools \
   mtools \
@@ -43,6 +69,7 @@ pacstrap /mnt \
   curl \
   ca-certificates \
   reflector \
+  ntp \
   --noconfirm
 
 genfstab -U /mnt >> /mnt/etc/fstab
