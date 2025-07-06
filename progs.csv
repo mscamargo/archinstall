@@ -1,0 +1,74 @@
+,base-devel,allows for compilation of AUR software
+,git,tracks changes in files and helps merge them
+,curl,transfers data to and from servers
+,linux-headers,kernel headers for module compilation
+,networkmanager,manages network connections
+,network-manager-applet,provides GUI for NetworkManager
+,gdm,GNOME display manager for login screen
+,xorg-server,graphical server for Linux
+,xorg-xinit,starts the X Window System
+,xorg-xrandr,configures screen resolution and layout
+,intel-media-driver,Intel graphics media driver
+,vulkan-intel,Intel Vulkan graphics driver
+,pipewire,modern audio server for Linux
+,pipewire-pulse,PulseAudio compatibility for PipeWire
+,pipewire-alsa,ALSA compatibility for PipeWire
+,pipewire-jack,JACK compatibility for PipeWire
+,wireplumber,session manager for PipeWire
+,alsa-utils,provides audio utilities
+,firefox,web browser
+,ranger,terminal file manager
+,thunar,lightweight file manager
+,mpv,media player
+,feh,image viewer and wallpaper setter
+,scrot,takes screenshots
+,flameshot,advanced screenshot tool
+,gst-plugins-base,GStreamer base plugins
+,gst-plugins-good,GStreamer good plugins
+,gst-plugins-bad,GStreamer bad plugins
+,gst-plugins-ugly,GStreamer ugly plugins
+,gst-libav,GStreamer libav plugin
+,neofetch,shows system information
+,htop,process monitor
+,btop,better process monitor
+,tree,displays directory structure
+,fd,fast find alternative
+,ripgrep,fast grep alternative
+,bat,cat with syntax highlighting
+,tmux,terminal multiplexer
+,less,pager for viewing files
+,bind,DNS utilities
+,unzip,extracts ZIP archives
+,zip,creates ZIP archives
+,neovim,text editor
+,gnome-keyring,stores passwords and secrets
+,libsecret,library for accessing secrets
+,docker,containerization platform
+,docker-compose,multi-container Docker applications
+,kubectl,Kubernetes command-line tool
+,helm,Kubernetes package manager
+,android-tools,Android development tools
+,jq,command-line JSON processor
+,wget,command-line web downloader
+,sshpass,SSH password authentication tool
+,openssh,secure shell for remote access
+,man-db,manual pages for commands
+,which,locates commands
+,usbutils,USB device utilities
+,noto-fonts,Google's font family
+,ttf-dejavu,high quality fonts
+,gvfs,virtual filesystem
+,gvfs-mtp,MTP support for mobile devices
+,ntfs-3g,NTFS filesystem support
+,xclip,command line clipboard utility
+,dbeaver,universal database tool git,tracks changes in files and helps merge them
+,code,Visual Studio Code editor
+,github-cli,GitHub command line interface
+,discord,voice and text chat for communities
+,obsidian,knowledge management tool
+A,paru,AUR helper for installing packages
+A,nerd-fonts-jetbrains-mono,monospace font for coding
+A,lens-bin,Kubernetes IDE
+A,freelens-bin,Open source Kubernetes IDE
+A,slack-desktop,team communication platform
+A,cursor-bin,AI-powered code editor
