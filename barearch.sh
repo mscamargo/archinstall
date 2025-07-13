@@ -7,6 +7,7 @@
 # Static configuration
 readonly DOTFILES_REPO="https://github.com/mscamargo/dotfiles"
 readonly SUCKLESS_REPO="https://github.com/mscamargo/suckless-software"
+readonly SCRIPT_DIR=$(pwd)
 readonly PROGS_FILE="progs.csv"
 readonly AUR_HELPER="paru"
 readonly USERNAME="${1:-$(whoami)}"  # Allow username as argument
@@ -286,7 +287,7 @@ echo "You can delete this script now."
 POSTEOF
     
     # Copy progs.csv to user home
-    cp "$(pwd)/$PROGS_FILE" "$user_home/"
+    cp "$SCRIPT_DIR/$PROGS_FILE" "$user_home/"
     
     # Make executable and set ownership
     chmod +x "$post_script"
