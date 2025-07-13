@@ -198,6 +198,7 @@ installdotfiles() {
     
     local user_home="/home/$USERNAME"
     local dotfiles_dir="$user_home/.local/src/dotfiles"
+    local prev_dir=$(pwd)
     
     if [[ ! -d "$dotfiles_dir" ]]; then
         warn "Dotfiles not found, skipping..."
@@ -207,7 +208,9 @@ installdotfiles() {
     # Run install script as user
     if [[ -f "$dotfiles_dir/install.sh" ]]; then
         chmod +x "$dotfiles_dir/install.sh"
-        sudo -u "$USERNAME" "$dotfiles_dir/install.sh"
+        cd "$dotfiles_dir"
+        sudo -u "$USERNAME" ./install.sh
+        cd "$prev_dir"
         log "Dotfiles installed"
     else
         warn "No install.sh found in dotfiles repository"
