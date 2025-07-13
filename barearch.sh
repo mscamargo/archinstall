@@ -100,9 +100,10 @@ installbasepackages() {
     
     [[ ! -f "$PROGS_FILE" ]] && error "Programs file $PROGS_FILE not found"
     
-    local base_packages=()
+    local installed_count=0
+    local failed_count=0
     
-    # Read only non-AUR packages
+    # Read and install packages one at a time
     while IFS=, read -r tag prog desc; do
         # Skip empty lines, comments, and AUR packages
         [[ -z "$prog" || "$prog" =~ ^[[:space:]]*# || "$tag" == "A" ]] && continue
@@ -110,25 +111,17 @@ installbasepackages() {
         # Skip git repos for now (handle them separately)
         [[ "$tag" == "G" ]] && continue
         
-        base_packages+=("$prog")
+        info "Installing $prog..."
+        if pacman --noconfirm -S "$prog" 2>/dev/null; then
+            log "✓ $prog installed successfully"
+            ((installed_count++))
+        else
+            warn "✗ Failed to install $prog"
+            ((failed_count++))
+        fi
     done < "$PROGS_FILE"
     
-    # Install in batches to avoid command line length issues
-    local batch_size=20
-    local total=${#base_packages[@]}
-    
-    for ((i=0; i<total; i+=batch_size)); do
-        local batch=("${base_packages[@]:i:batch_size}")
-        info "Installing batch: ${batch[*]}"
-        pacman --noconfirm -S "${batch[@]}" 2>/dev/null || {
-            # If batch fails, try individual packages
-            for pkg in "${batch[@]}"; do
-                pacman --noconfirm -S "$pkg" 2>/dev/null || warn "Failed to install $pkg"
-            done
-        }
-    done
-    
-    log "Base packages installed"
+    log "Base packages installation complete: $installed_count installed, $failed_count failed"
 }
 
 # Setup user environment and clone repositories
