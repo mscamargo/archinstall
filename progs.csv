@@ -66,6 +66,8 @@
 ,github-cli,GitHub command line interface
 ,discord,voice and text chat for communities
 ,obsidian,knowledge management tool
+,webkit2gtk,webkit2gtk library
+,webkit2gtk-4.1,webkit2gtk library
 A,paru,AUR helper for installing packages
 A,nerd-fonts-jetbrains-mono,monospace font for coding
 A,lens-bin,Kubernetes IDE
