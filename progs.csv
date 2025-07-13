@@ -4,7 +4,7 @@
 ,linux-headers,kernel headers for module compilation
 ,networkmanager,manages network connections
 ,network-manager-applet,provides GUI for NetworkManager
-,gdm,GNOME display manager for login screen
+,ly,lightweight TUI display manager
 ,xorg-server,graphical server for Linux
 ,xorg-xinit,starts the X Window System
 ,xorg-xrandr,configures screen resolution and layout
