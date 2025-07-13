@@ -286,7 +286,7 @@ echo "You can delete this script now."
 POSTEOF
     
     # Copy progs.csv to user home
-    cp "./$PROGS_FILE" "$user_home/"
+    cp "$(pwd)/$PROGS_FILE" "$user_home/"
     
     # Make executable and set ownership
     chmod +x "$post_script"
