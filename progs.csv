@@ -61,7 +61,8 @@
 ,gvfs-mtp,MTP support for mobile devices
 ,ntfs-3g,NTFS filesystem support
 ,xclip,command line clipboard utility
-,dbeaver,universal database tool git,tracks changes in files and helps merge them
+,dbeaver,universal database tool
+,git,tracks changes in files and helps merge them
 ,code,Visual Studio Code editor
 ,github-cli,GitHub command line interface
 ,discord,voice and text chat for communities

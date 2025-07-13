@@ -111,13 +111,16 @@ installbasepackages() {
         # Skip git repos for now (handle them separately)
         [[ "$tag" == "G" ]] && continue
         
+        # Clean up program name (remove any extra whitespace)
+        prog=$(echo "$prog" | xargs)
+        
         info "Installing $prog..."
-        if pacman --noconfirm -S "$prog" 2>/dev/null; then
+        if pacman --noconfirm -S "$prog"; then
             log "✓ $prog installed successfully"
-            ((installed_count++))
+            installed_count=$((installed_count + 1))
         else
             warn "✗ Failed to install $prog"
-            ((failed_count++))
+            failed_count=$((failed_count + 1))
         fi
     done < "$PROGS_FILE"
     
