@@ -60,24 +60,13 @@ EOF
     read -p "Press ENTER to continue, or Ctrl+C to abort..."
 }
 
-# Create user if it doesn't exist
-createuser() {
-    if id "$USERNAME" &>/dev/null; then
-        info "User $USERNAME already exists"
-        return
+# Check if user exists
+checkuser() {
+    if ! id "$USERNAME" &>/dev/null; then
+        error "User $USERNAME does not exist. Please create the user before running this script."
     fi
     
-    info "Creating user $USERNAME..."
-    useradd -m -G wheel,audio,video,storage -s /bin/bash "$USERNAME"
-    
-    # Set password
-    echo "Set password for $USERNAME:"
-    passwd "$USERNAME"
-    
-    # Add to sudoers
-    echo "$USERNAME ALL=(ALL) ALL" >> /etc/sudoers.d/99-"$USERNAME"
-    
-    log "User $USERNAME created successfully"
+    info "User $USERNAME exists and will be configured"
 }
 
 # Refresh keyrings and update system
@@ -299,14 +288,14 @@ finalize() {
     echo
     cat << EOF
 Your Arch system has been configured with:
-- User '$USERNAME' created with sudo access
+- User '$USERNAME' configured
 - Base packages installed (no AUR packages yet)
 - Suckless software built and installed
 - Dotfiles installed
 - System services enabled
 
 IMPORTANT: After first boot and login, run:
-/home/$USERNAME/bare-arch-post-install.sh
+/home/$USERNAME/post-archinstall.sh
 
 This will install AUR packages and configure user services.
 EOF
@@ -319,7 +308,7 @@ EOF
 main() {
     chrootcheck
     welcome
-    createuser
+    checkuser
     refreshkeys
     updatearch
     installbasepackages
