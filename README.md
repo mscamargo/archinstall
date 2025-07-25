@@ -6,10 +6,10 @@ Run the entire setup with one command (username is required):
 
 ```bash
 # Using curl
-curl -sSL https://raw.githubusercontent.com/mscamargo/bare-arch/main/run.sh | bash -s yourusername
+curl -sSL https://raw.githubusercontent.com/mscamargo/archinstall/main/run.sh | bash -s yourusername
 
 # Using wget
-wget -qO- https://raw.githubusercontent.com/mscamargo/bare-arch/main/run.sh | bash -s yourusername
+wget -qO- https://raw.githubusercontent.com/mscamargo/archinstall/main/run.sh | bash -s yourusername
 ```
 
 ## Manual Installation
@@ -17,8 +17,8 @@ wget -qO- https://raw.githubusercontent.com/mscamargo/bare-arch/main/run.sh | ba
 If you prefer to clone the repository first:
 
 ```bash
-git clone https://github.com/mscamargo/bare-arch
-cd bare-arch
+git clone https://github.com/mscamargo/archinstall
+cd archinstall
 ./install.sh username  # replace 'username' with desired username
 ```
 

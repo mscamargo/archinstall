@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # bare-arch bootstrap script
-# This script can be run with: curl -sSL https://raw.githubusercontent.com/mscamargo/bare-arch/main/run.sh | bash -s username
+# This script can be run with: curl -sSL https://raw.githubusercontent.com/mscamargo/archinstall/main/run.sh | bash -s username
 
 set -e
 
@@ -19,7 +19,7 @@ warn() { echo -e "${YELLOW}[WARN]${NC} $*"; }
 info() { echo -e "${BLUE}[INFO]${NC} $*"; }
 
 # Configuration
-readonly REPO_URL="https://github.com/mscamargo/bare-arch"
+readonly REPO_URL="https://github.com/mscamargo/archinstall"
 readonly INSTALL_DIR="$HOME/.local/share/bare-arch"
 
 # Check if username is provided
