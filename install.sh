@@ -239,7 +239,7 @@ createpostinstall() {
     info "Creating post-install script for AUR packages..."
     
     local user_home="/home/$USERNAME"
-    local post_script="$user_home/bare-arch-post-install.sh"
+    local post_script="$user_home/post-archinstall.sh"
     
     cat > "$post_script" << 'POSTEOF'
 #!/bin/bash
