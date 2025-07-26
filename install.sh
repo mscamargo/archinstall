@@ -83,6 +83,41 @@ updatearch() {
     log "System updated"
 }
 
+# Configure swapfile
+configureswap() {
+    info "Configuring 8GB swapfile..."
+    
+    local swapfile="/swapfile"
+    local swap_size="8G"
+    
+    # Check if swapfile already exists
+    if [[ -f "$swapfile" ]]; then
+        warn "Swapfile already exists, skipping creation"
+        return
+    fi
+    
+    # Create swapfile
+    info "Creating $swap_size swapfile..."
+    fallocate -l "$swap_size" "$swapfile" || dd if=/dev/zero of="$swapfile" bs=1G count=8
+    
+    # Set correct permissions
+    chmod 600 "$swapfile"
+    
+    # Make it swap
+    mkswap "$swapfile"
+    
+    # Enable swap
+    swapon "$swapfile"
+    
+    # Add to fstab for persistence
+    if ! grep -q "$swapfile" /etc/fstab; then
+        echo "$swapfile none swap defaults 0 0" >> /etc/fstab
+        log "Added swapfile to /etc/fstab"
+    fi
+    
+    log "8GB swapfile configured and enabled"
+}
+
 # Install base packages only (no AUR in chroot)
 installbasepackages() {
     info "Installing base packages..."
@@ -289,6 +324,7 @@ finalize() {
     cat << EOF
 Your Arch system has been configured with:
 - User '$USERNAME' configured
+- 8GB swapfile created and enabled
 - Base packages installed (no AUR packages yet)
 - Suckless software built and installed
 - Dotfiles installed
@@ -311,6 +347,7 @@ main() {
     checkuser
     refreshkeys
     updatearch
+    configureswap
     installbasepackages
     setupuserenv
     installsuckless
