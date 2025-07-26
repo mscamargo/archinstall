@@ -85,7 +85,7 @@ updatearch() {
 
 # Configure swapfile
 configureswap() {
-    info "Configuring 8GB swapfile..."
+    info "Configuring 8GB swapfile with aggressive swappiness..."
     
     local swapfile="/swapfile"
     local swap_size="8G"
@@ -93,29 +93,41 @@ configureswap() {
     # Check if swapfile already exists
     if [[ -f "$swapfile" ]]; then
         warn "Swapfile already exists, skipping creation"
-        return
+    else
+        # Create swapfile
+        info "Creating $swap_size swapfile..."
+        fallocate -l "$swap_size" "$swapfile" || dd if=/dev/zero of="$swapfile" bs=1G count=8
+        
+        # Set correct permissions
+        chmod 600 "$swapfile"
+        
+        # Make it swap
+        mkswap "$swapfile"
+        
+        # Add to fstab for persistence
+        if ! grep -q "$swapfile" /etc/fstab; then
+            echo "$swapfile none swap defaults 0 0" >> /etc/fstab
+            log "Added swapfile to /etc/fstab"
+        fi
     fi
-    
-    # Create swapfile
-    info "Creating $swap_size swapfile..."
-    fallocate -l "$swap_size" "$swapfile" || dd if=/dev/zero of="$swapfile" bs=1G count=8
-    
-    # Set correct permissions
-    chmod 600 "$swapfile"
-    
-    # Make it swap
-    mkswap "$swapfile"
     
     # Enable swap
     swapon "$swapfile"
     
-    # Add to fstab for persistence
-    if ! grep -q "$swapfile" /etc/fstab; then
-        echo "$swapfile none swap defaults 0 0" >> /etc/fstab
-        log "Added swapfile to /etc/fstab"
-    fi
+    # Configure aggressive swappiness (use swap as much as possible)
+    info "Configuring maximum swappiness..."
     
-    log "8GB swapfile configured and enabled"
+    # Set swappiness to 100 (maximum - use swap as much as possible)
+    echo "vm.swappiness=100" >> /etc/sysctl.conf
+    
+    # Set vfs_cache_pressure to 100 (aggressive cache clearing)
+    echo "vm.vfs_cache_pressure=100" >> /etc/sysctl.conf
+    
+    # Apply settings immediately
+    sysctl vm.swappiness=100
+    sysctl vm.vfs_cache_pressure=100
+    
+    log "8GB swapfile configured with maximum swappiness (100)"
 }
 
 # Install base packages only (no AUR in chroot)
@@ -324,7 +336,7 @@ finalize() {
     cat << EOF
 Your Arch system has been configured with:
 - User '$USERNAME' configured
-- 8GB swapfile created and enabled
+- 8GB swapfile created with maximum swappiness (100)
 - Base packages installed (no AUR packages yet)
 - Suckless software built and installed
 - Dotfiles installed
