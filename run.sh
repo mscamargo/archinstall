@@ -82,7 +82,7 @@ download_project() {
     
     for file in "${files[@]}"; do
         info "Downloading $file..."
-        if curl -sSL -o "$file" "$REPO_URL/raw/main/$file"; then
+        if curl --no-cache -sSL -o "$file" "$REPO_URL/raw/main/$file"; then
             log "✓ Downloaded $file"
         else
             error "Failed to download $file"
