@@ -263,7 +263,7 @@ installdotfiles() {
 enableservices() {
     info "Enabling system services..."
     
-    local services=("NetworkManager" "ly")
+    local services=("NetworkManager")
     
     for service in "${services[@]}"; do
         if systemctl list-unit-files | grep -q "^$service.service"; then
