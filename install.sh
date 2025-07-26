@@ -200,6 +200,24 @@ setupuserenv() {
     log "User environment set up"
 }
 
+# Configure user shell
+configureshell() {
+    info "Configuring user shell..."
+    
+    # Check if zsh is installed
+    if ! command -v zsh &> /dev/null; then
+        warn "zsh not found, skipping shell configuration"
+        return
+    fi
+    
+    # Set zsh as default shell for the user
+    if chsh -s /bin/zsh "$USERNAME"; then
+        log "✓ Set zsh as default shell for $USERNAME"
+    else
+        warn "Failed to set zsh as default shell for $USERNAME"
+    fi
+}
+
 # Install suckless software
 installsuckless() {
     info "Installing suckless software..."
@@ -369,6 +387,7 @@ main() {
     configureswap
     installbasepackages
     setupuserenv
+    configureshell
     installsuckless
     installdotfiles
     enableservices
