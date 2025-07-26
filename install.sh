@@ -57,7 +57,14 @@ EOF
     log "This will configure your Arch system during installation"
     log "Target user: $USERNAME"
     echo
-    read -p "Press ENTER to continue, or Ctrl+C to abort..."
+    
+    # Check if we're running from a pipe (curl | bash)
+    if [[ -t 0 ]]; then
+        read -p "Press ENTER to continue, or Ctrl+C to abort..."
+    else
+        warn "Running from pipe - continuing automatically in 3 seconds..."
+        sleep 3
+    fi
 }
 
 # Check if user exists
