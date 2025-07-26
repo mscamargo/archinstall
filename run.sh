@@ -71,7 +71,7 @@ download_project() {
     cd "$INSTALL_DIR"
     
     # Download individual files
-    local files=("install.sh" "progs.csv" "README.md" "LICENSE")
+    local files=("install.sh" "packages.csv" "README.md" "LICENSE")
     
     for file in "${files[@]}"; do
         info "Downloading $file..."

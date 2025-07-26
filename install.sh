@@ -8,7 +8,7 @@
 readonly DOTFILES_REPO="https://github.com/mscamargo/dotfiles"
 readonly SUCKLESS_REPO="https://github.com/mscamargo/suckless-software"
 readonly SCRIPT_DIR=$(pwd)
-readonly PROGS_FILE="progs.csv"
+readonly PACKAGES_FILE="packages.csv"
 readonly AUR_HELPER="paru"
 readonly USERNAME="${1:-$(whoami)}"  # Allow username as argument
 
@@ -87,7 +87,7 @@ updatearch() {
 installbasepackages() {
     info "Installing base packages..."
     
-    [[ ! -f "$PROGS_FILE" ]] && error "Programs file $PROGS_FILE not found"
+    [[ ! -f "$PACKAGES_FILE" ]] && error "Packages file $PACKAGES_FILE not found"
     
     local installed_count=0
     local failed_count=0
@@ -111,7 +111,7 @@ installbasepackages() {
             warn "✗ Failed to install $prog"
             failed_count=$((failed_count + 1))
         fi
-    done < "$PROGS_FILE"
+    done < "$PACKAGES_FILE"
     
     log "Base packages installation complete: $installed_count installed, $failed_count failed"
 }
@@ -237,7 +237,7 @@ createpostinstall() {
 # Run this after first login to install AUR packages
 
 readonly AUR_HELPER="paru"
-readonly PROGS_FILE="progs.csv"
+readonly PACKAGES_FILE="packages.csv"
 
 # Install paru
 if ! command -v paru &> /dev/null; then
@@ -251,14 +251,14 @@ if ! command -v paru &> /dev/null; then
 fi
 
 # Install AUR packages
-if [[ -f "$PROGS_FILE" ]]; then
+if [[ -f "$PACKAGES_FILE" ]]; then
     while IFS=, read -r tag prog desc; do
         [[ "$tag" != "A" ]] && continue
         [[ -z "$prog" || "$prog" =~ ^[[:space:]]*# ]] && continue
         
         echo "Installing $prog from AUR..."
         paru -S --noconfirm "$prog" 2>/dev/null || echo "Failed to install $prog"
-    done < "$PROGS_FILE"
+    done < "$PACKAGES_FILE"
 fi
 
 # Enable user services
@@ -271,12 +271,12 @@ echo "AUR packages and user services configured!"
 echo "You can delete this script now."
 POSTEOF
     
-    # Copy progs.csv to user home
-    cp "$SCRIPT_DIR/$PROGS_FILE" "$user_home/"
+    # Copy packages.csv to user home
+    cp "$SCRIPT_DIR/$PACKAGES_FILE" "$user_home/"
     
     # Make executable and set ownership
     chmod +x "$post_script"
-    chown "$USERNAME:$USERNAME" "$post_script" "$user_home/$PROGS_FILE"
+    chown "$USERNAME:$USERNAME" "$post_script" "$user_home/$PACKAGES_FILE"
     
     log "Post-install script created at $post_script"
 }
