@@ -69,6 +69,10 @@
 ,obsidian,knowledge management tool
 ,webkit2gtk,webkit2gtk library
 ,webkit2gtk-4.1,webkit2gtk library
+,awesome,awesome window manager
+,alacritty,GPU-accelerated terminal emulator
+,rofi,window switcher and application launcher
+,picom,compositor for X11
 A,paru,AUR helper for installing packages
 A,nerd-fonts-jetbrains-mono,monospace font for coding
 A,lens-bin,Kubernetes IDE

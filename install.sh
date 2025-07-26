@@ -6,7 +6,6 @@
 
 # Static configuration
 readonly DOTFILES_REPO="https://github.com/mscamargo/dotfiles"
-readonly SUCKLESS_REPO="https://github.com/mscamargo/suckless-software"
 readonly SCRIPT_DIR=$(pwd)
 readonly PACKAGES_FILE="packages.csv"
 readonly AUR_HELPER="paru"
@@ -180,13 +179,6 @@ setupuserenv() {
     # Create directories
     mkdir -p "$src_dir"
     
-    # Clone suckless software
-    if [[ ! -d "$src_dir/suckless-software" ]]; then
-        info "Cloning suckless software..."
-        git clone "$SUCKLESS_REPO" "$src_dir/suckless-software"
-        log "Suckless software cloned"
-    fi
-    
     # Clone dotfiles
     if [[ ! -d "$src_dir/dotfiles" ]]; then
         info "Cloning dotfiles..."
@@ -216,38 +208,6 @@ configureshell() {
     else
         warn "Failed to set zsh as default shell for $USERNAME"
     fi
-}
-
-# Install suckless software
-installsuckless() {
-    info "Installing suckless software..."
-    
-    local user_home="/home/$USERNAME"
-    local suckless_dir="$user_home/.local/src/suckless-software"
-    
-    if [[ ! -d "$suckless_dir" ]]; then
-        warn "Suckless software not found, skipping..."
-        return
-    fi
-    
-    cd "$suckless_dir"
-    
-    # Install each suckless program
-    local suckless_progs=("dwm" "st" "dmenu" "surf")
-    
-    for prog in "${suckless_progs[@]}"; do
-        if [[ -d "$prog" ]]; then
-            info "Installing $prog..."
-            cd "$prog"
-            make clean install
-            cd ..
-            log "$prog installed successfully"
-        else
-            warn "$prog directory not found"
-        fi
-    done
-    
-    log "Suckless software installation complete"
 }
 
 # Install dotfiles
@@ -361,10 +321,7 @@ finalize() {
     cat << EOF
 Your Arch system has been configured with:
 - User '$USERNAME' configured
-- 8GB swapfile created with maximum swappiness (100)
 - Base packages installed (no AUR packages yet)
-- Suckless software built and installed
-- Dotfiles installed
 - System services enabled
 
 IMPORTANT: After first boot and login, run:
@@ -388,7 +345,6 @@ main() {
     installbasepackages
     setupuserenv
     configureshell
-    installsuckless
     installdotfiles
     enableservices
     createpostinstall
