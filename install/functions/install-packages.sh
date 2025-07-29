@@ -1,7 +1,7 @@
 install_packages() {
 	info "Installing packages..."
 
-	local PACKAGES_FILE="$ROOT_DIR/packages.csv"
+	local PACKAGES_FILE="$ROOT_DIR/install/packages.csv"
 
 	[[ ! -f "$PACKAGES_FILE" ]] && error "Packages file $PACKAGES_FILE not found"
 
