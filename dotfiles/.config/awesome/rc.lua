@@ -326,7 +326,36 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+    
+    -- Volume control with media keys
+    awful.key({ }, "XF86AudioRaiseVolume", function()
+        awful.spawn("pamixer -i 5")
+    end, {description = "increase volume", group = "media"}),
+    
+    awful.key({ }, "XF86AudioLowerVolume", function()
+        awful.spawn("pamixer -d 5")
+    end, {description = "decrease volume", group = "media"}),
+    
+    awful.key({ }, "XF86AudioMute", function()
+        awful.spawn("pamixer -t")
+    end, {description = "toggle mute", group = "media"}),
+    
+    awful.key({ }, "XF86AudioPlay", function()
+        awful.spawn("playerctl play-pause")
+    end, {description = "play/pause", group = "media"}),
+    
+    awful.key({ }, "XF86AudioNext", function()
+        awful.spawn("playerctl next")
+    end, {description = "next track", group = "media"}),
+    
+    awful.key({ }, "XF86AudioPrev", function()
+        awful.spawn("playerctl previous")
+    end, {description = "previous track", group = "media"}),
+
+    awful.key({ modkey }, "/", function()
+        awful.spawn("toggle-kbl")
+    end, {description = "toggle keyboard layout", group = "keyboard"})
 )
 
 clientkeys = gears.table.join(
