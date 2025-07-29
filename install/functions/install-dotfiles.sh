@@ -1,24 +1,49 @@
+expand_path() {
+	echo "${1/\$HOME/$HOME}"
+}
+
+create_symlink() {
+	local source="$1"
+	local target="$2"
+	local description="$3"
+
+	source=$(expand_path "$source")
+	target=$(expand_path "$target")
+
+	if [[ "$source" != /* ]]; then
+		source="$(pwd)/$source"
+	fi
+
+	mkdir -p "$(dirname "$target")"
+
+	[ -e "$target" ] && rm -rf "$target"
+
+	ln -sf "$source" "$target"
+	echo "✓ $description"
+}
+
 install_dotfiles() {
 	info "Installing dotfiles..."
 
-	local dotfiles_dir="$HOME/.local/src/dotfiles"
-	local prev_dir=$(pwd)
+	local CSV_FILE="./sym-links.csv"
 
-	if [[ ! -d "$dotfiles_dir" ]]; then
-		warn "Dotfiles not found, skipping..."
-		return
-	fi
+	# Install dotfiles from CSV
+	while IFS=',' read -r source_path target_path description; do
+		# Skip empty lines and comments
+		[[ -z "$source_path" || "$source_path" =~ ^#.*$ ]] && continue
 
-	# Run install script
-	if [[ -f "$dotfiles_dir/install.sh" ]]; then
-		chmod +x "$dotfiles_dir/install.sh"
-		cd "$dotfiles_dir"
-		./install.sh
-		cd "$prev_dir"
-		log "Dotfiles installed"
-	else
-		warn "No install.sh found in dotfiles repository"
-	fi
+		# Trim whitespace
+		source_path=$(echo "$source_path" | xargs)
+		target_path=$(echo "$target_path" | xargs)
+		description=$(echo "$description" | xargs)
+
+		# Skip if source doesn't exist
+		full_source_path="./$source_path"
+		[ ! -e "$full_source_path" ] && continue
+
+		create_symlink "$source_path" "$target_path" "$description"
+
+	done <"$CSV_FILE"
 
 	log "Dotfiles installation complete"
 }
