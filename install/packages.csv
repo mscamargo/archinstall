@@ -73,7 +73,6 @@
 ,alacritty,GPU-accelerated terminal emulator
 ,rofi,window switcher and application launcher
 ,picom,compositor for X11
-A,paru,AUR helper for installing packages
 A,nerd-fonts-jetbrains-mono,monospace font for coding
 A,lens-bin,Kubernetes IDE
 A,freelens-bin,Open source Kubernetes IDE
