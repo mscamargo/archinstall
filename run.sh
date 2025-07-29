@@ -2,4 +2,6 @@
 
 ROOT_DIR=$(pwd)
 
-./install/install.sh
+source "$ROOT_DIR/install/install.sh"
+
+main "$@"

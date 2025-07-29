@@ -29,5 +29,3 @@ main() {
 	enable_user_services
 	finalize
 }
-
-main "$@"
