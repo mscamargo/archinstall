@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+	~/.local/bin/statusbar
+	sleep 5
+done

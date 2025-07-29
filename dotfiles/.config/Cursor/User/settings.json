@@ -1,0 +1,35 @@
+{
+    "window.commandCenter": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "window.dialogStyle": "custom",
+    "files.simpleDialog.enable": true,
+    "window.restoreWindows": "none",
+    "workbench.iconTheme": "symbols",
+    "git.autofetch": true,
+    "workbench.colorTheme": "Tokyo Night",
+    "redhat.telemetry.enabled": false,
+    "githubPullRequests.pullBranch": "never",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "workbench.editor.restoreViewState": false,
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "editor.lineNumbers": "relative",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "cursor.cpp.disabledLanguages": [
+        "markdown"
+    ]
+}

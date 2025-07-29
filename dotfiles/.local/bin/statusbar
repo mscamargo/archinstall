@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Get volume info
+VOL=$(pamixer --get-volume)
+MUTE=$(pamixer --get-mute)
+[ "$MUTE" = "true" ] && VOL="MUTE"
+
+# Get date
+DATE=$(date '+%Y-%m-%d %H:%M')
+
+# Combine and set status bar
+xsetroot -name "VOL: $VOL% | $DATE"

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+variant=$(setxkbmap -query | grep variant | awk '{print $2}')
+
+if [ "$variant" = "intl" ]; then
+	setxkbmap -layout us -option ctrl:nocaps -option altwin:swap_lalt_lwin
+else
+	setxkbmap -layout us -variant intl -option ctrl:nocaps -option altwin:swap_lalt_lwin
+fi

@@ -1,0 +1,7 @@
+#!/bin/sh
+username="$(kubectl get secret -n kube-prometheus-stack kube-prometheus-stack-grafana -o jsonpath='{.data.admin-user}' | base64 --decode)"
+echo "username: $username"
+password="$(kubectl get secret -n kube-prometheus-stack kube-prometheus-stack-grafana -o jsonpath='{.data.admin-password}' | base64 --decode)"
+echo "password: $password"
+
+kubectl port-forward svc/kube-prometheus-stack-grafana 4000:80 -n kube-prometheus-stack
