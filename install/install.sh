@@ -8,9 +8,8 @@ source "$SCRIPT_DIR/functions/check-user.sh"
 source "$SCRIPT_DIR/functions/refresh-arch-keys.sh"
 source "$SCRIPT_DIR/functions/update-arch.sh"
 source "$SCRIPT_DIR/functions/configure-swap.sh"
-source "$SCRIPT_DIR/functions/install-base-packages.sh"
 source "$SCRIPT_DIR/functions/install-aur-helper.sh"
-source "$SCRIPT_DIR/functions/install-aur-packages.sh"
+source "$SCRIPT_DIR/functions/install-packages.sh"
 source "$SCRIPT_DIR/functions/setup-user-env.sh"
 source "$SCRIPT_DIR/functions/configure-shell.sh"
 source "$SCRIPT_DIR/functions/install-dotfiles.sh"
@@ -25,8 +24,7 @@ main() {
 	update_arch
 	configure_swap
 	install_aur_helper
-	install_base_packages
-	install_aur_packages
+	install_packages
 	setup_user_env
 	configure_shell
 	install_dotfiles
