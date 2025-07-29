@@ -11,7 +11,7 @@ create_symlink() {
 	target=$(expand_path "$target")
 
 	if [[ "$source" != /* ]]; then
-		source="$(pwd)/$source"
+		source="$ROOT_DIR/$source"
 	fi
 
 	mkdir -p "$(dirname "$target")"
@@ -25,7 +25,7 @@ create_symlink() {
 install_dotfiles() {
 	info "Installing dotfiles..."
 
-	local CSV_FILE="./sym-links.csv"
+	local CSV_FILE="$ROOT_DIR/dotfiles/sym-links.csv"
 
 	# Install dotfiles from CSV
 	while IFS=',' read -r source_path target_path description; do

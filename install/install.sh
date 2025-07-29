@@ -1,18 +1,18 @@
 #!/bin/bash
 
-source "./functions/logging.sh"
-source "./functions/error-handling.sh"
-source "./functions/check-user.sh"
-source "./functions/refresh-arch-keys.sh"
-source "./functions/update-arch.sh"
-source "./functions/configure-swap.sh"
-source "./functions/install-aur-helper.sh"
-source "./functions/install-packages.sh"
-source "./functions/setup-user-env.sh"
-source "./functions/configure-shell.sh"
-source "./functions/install-dotfiles.sh"
-source "./functions/enable-user-services.sh"
-source "./functions/finalize.sh"
+source "$ROOT_DIR/install/functions/logging.sh"
+source "$ROOT_DIR/install/functions/error-handling.sh"
+source "$ROOT_DIR/install/functions/check-user.sh"
+source "$ROOT_DIR/install/functions/refresh-arch-keys.sh"
+source "$ROOT_DIR/install/functions/update-arch.sh"
+source "$ROOT_DIR/install/functions/configure-swap.sh"
+source "$ROOT_DIR/install/functions/install-aur-helper.sh"
+source "$ROOT_DIR/install/functions/install-packages.sh"
+source "$ROOT_DIR/install/functions/setup-user-env.sh"
+source "$ROOT_DIR/install/functions/configure-shell.sh"
+source "$ROOT_DIR/install/functions/install-dotfiles.sh"
+source "$ROOT_DIR/install/functions/enable-user-services.sh"
+source "$ROOT_DIR/install/functions/finalize.sh"
 
 setup_error_handling
 
