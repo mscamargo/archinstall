@@ -1,5 +1,3 @@
-#!/bin/bash
-
 enable_user_services() {
 	info "Enabling user services..."
 

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 configure_shell() {
 	info "Configuring user shell..."
 

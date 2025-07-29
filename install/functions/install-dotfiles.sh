@@ -1,5 +1,3 @@
-#!/bin/bash
-
 install_dotfiles() {
 	info "Installing dotfiles..."
 

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 configure_swap() {
 	info "Checking swap configuration..."
 

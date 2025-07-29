@@ -1,20 +1,18 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-source "$SCRIPT_DIR/functions/logging.sh"
-source "$SCRIPT_DIR/functions/error-handling.sh"
-source "$SCRIPT_DIR/functions/check-user.sh"
-source "$SCRIPT_DIR/functions/refresh-arch-keys.sh"
-source "$SCRIPT_DIR/functions/update-arch.sh"
-source "$SCRIPT_DIR/functions/configure-swap.sh"
-source "$SCRIPT_DIR/functions/install-aur-helper.sh"
-source "$SCRIPT_DIR/functions/install-packages.sh"
-source "$SCRIPT_DIR/functions/setup-user-env.sh"
-source "$SCRIPT_DIR/functions/configure-shell.sh"
-source "$SCRIPT_DIR/functions/install-dotfiles.sh"
-source "$SCRIPT_DIR/functions/enable-user-services.sh"
-source "$SCRIPT_DIR/functions/finalize.sh"
+source "./functions/logging.sh"
+source "./functions/error-handling.sh"
+source "./functions/check-user.sh"
+source "./functions/refresh-arch-keys.sh"
+source "./functions/update-arch.sh"
+source "./functions/configure-swap.sh"
+source "./functions/install-aur-helper.sh"
+source "./functions/install-packages.sh"
+source "./functions/setup-user-env.sh"
+source "./functions/configure-shell.sh"
+source "./functions/install-dotfiles.sh"
+source "./functions/enable-user-services.sh"
+source "./functions/finalize.sh"
 
 setup_error_handling
 

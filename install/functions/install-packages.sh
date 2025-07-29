@@ -1,5 +1,3 @@
-#!/bin/bash
-
 install_packages() {
 	info "Installing packages..."
 

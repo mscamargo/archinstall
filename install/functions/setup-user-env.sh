@@ -1,5 +1,3 @@
-#!/bin/bash
-
 setup_user_env() {
 	info "Setting up user environment..."
 

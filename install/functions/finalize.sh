@@ -1,5 +1,3 @@
-#!/bin/bash
-
 finalize() {
 	clear
 	log "bare-arch installation complete!"
