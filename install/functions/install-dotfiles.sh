@@ -22,28 +22,40 @@ create_symlink() {
 	echo "✓ $description"
 }
 
+install_dotfile_recursive() {
+	local source_dir="$1"
+	local target_base="$2"
+	
+	# Find all files in the source directory
+	while IFS= read -r -d '' file; do
+		# Get relative path from source directory
+		local relative_path="${file#$source_dir/}"
+		
+		# Determine target path
+		local target_path
+		if [[ "$relative_path" == .* ]]; then
+			# Hidden files go to $HOME
+			target_path="$HOME/$relative_path"
+		else
+			# Other files go to $HOME/.config
+			target_path="$HOME/.config/$relative_path"
+		fi
+		
+		# Create symlink
+		create_symlink "$file" "$target_path" "$relative_path"
+		
+	done < <(find "$source_dir" -type f -print0)
+}
+
 install_dotfiles() {
 	info "Installing dotfiles..."
 
-	local CSV_FILE="$ROOT_DIR/dotfiles/sym-links.csv"
+	local DOTFILES_DIR="$ROOT_DIR/dotfiles"
 
-	# Install dotfiles from CSV
-	while IFS=',' read -r source_path target_path description; do
-		# Skip empty lines and comments
-		[[ -z "$source_path" || "$source_path" =~ ^#.*$ ]] && continue
-
-		# Trim whitespace
-		source_path=$(echo "$source_path" | xargs)
-		target_path=$(echo "$target_path" | xargs)
-		description=$(echo "$description" | xargs)
-
-		# Skip if source doesn't exist
-		full_source_path="./$source_path"
-		[ ! -e "$full_source_path" ] && continue
-
-		create_symlink "$source_path" "$target_path" "$description"
-
-	done <"$CSV_FILE"
+	# Install dotfiles recursively
+	if [ -d "$DOTFILES_DIR" ]; then
+		install_dotfile_recursive "$DOTFILES_DIR" "$HOME"
+	fi
 
 	log "Dotfiles installation complete"
 }
