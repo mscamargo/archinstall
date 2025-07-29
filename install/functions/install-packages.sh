@@ -25,7 +25,7 @@ install_packages() {
 		if [[ "$tag" == "A" ]]; then
 			# AUR package
 			info "Installing $prog from AUR..."
-			if paru -S --noconfirm "$prog"; then
+			if paru -S --noconfirm "$prog" >/dev/null 2>&1; then
 				log "✓ $prog (AUR) installed successfully"
 				aur_installed_count=$((aur_installed_count + 1))
 			else
@@ -35,7 +35,7 @@ install_packages() {
 		else
 			# Base package (empty tag or any other tag)
 			info "Installing $prog..."
-			if sudo pacman --noconfirm -S "$prog"; then
+			if sudo pacman --noconfirm -S "$prog" >/dev/null 2>&1; then
 				log "✓ $prog installed successfully"
 				base_installed_count=$((base_installed_count + 1))
 			else
