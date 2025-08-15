@@ -31,5 +31,6 @@
     },
     "cursor.cpp.disabledLanguages": [
         "markdown"
-    ]
+    ],
+    "editor.formatOnSave": true,
 }
